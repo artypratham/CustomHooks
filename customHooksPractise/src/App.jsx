@@ -120,8 +120,17 @@ import axios from "axios";
 // }
 
 
+
+
+
+
+
+
+
+
+
 function App() {
-  const {todos , loading} = useTodos();
+  const {todos , loading} = useTodos(5);
   if(loading){
     return (
       <>
@@ -139,18 +148,31 @@ function App() {
 }
 
 
-function useTodos() {
+function useTodos(n) {
   const [todos, setTodos]  =useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+
+  function getData(){
     axios.get("https://sum-server.100xdevs.com/todos")
     .then(res=> {
       setTodos(res.data.todos)
       setLoading(false)
-    })
-    
-  },[])
+  })}
+
+
+  useEffect(() => {
+    const value = setInterval( ()=> {
+      getData();
+    }, n * 1000)
+    getData();
+
+    //clears the previous n if their is any change in n i.e the previous clock stops and a new clock starts executing 
+    //heres the clean up function
+    return () => {
+      clearInterval(value)
+    }
+  },[n])
 
 
   return {
@@ -166,7 +188,7 @@ function Track({todo}) {
     <div>
      {todo.title}
    </div>
-   <div>
+   <div>   
      {todo.description}
    </div>
    </>
