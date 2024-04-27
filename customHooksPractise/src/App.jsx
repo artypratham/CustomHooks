@@ -121,8 +121,17 @@ import axios from "axios";
 
 
 function App() {
-  const todos = useTodos();
+  const {todos , loading} = useTodos();
+  if(loading){
+    return (
+      <>
+      Loading....
+      </>
+    )
+  }
+  
   return(
+
     <>
       {todos.map(todo => <Track todo={todo} key={todo.id} />)}
     </>
@@ -132,15 +141,22 @@ function App() {
 
 function useTodos() {
   const [todos, setTodos]  =useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axios.get("https://sum-server.100xdevs.com/todos")
     .then(res=> {
       setTodos(res.data.todos)
+      setLoading(false)
     })
+    
   },[])
 
-  return todos;
+
+  return {
+          todos : todos,
+          loading: loading
+        };
 }
 
 
