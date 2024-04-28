@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import './App.css';
 import axios from "axios";
+
+
+
 // function App() {
 
 //   return (
@@ -127,79 +130,160 @@ import axios from "axios";
 
 
 
+//complete get data custom hook with loading and setInterval()
 
-
-function App() {
-  const {todos , loading} = useTodos(5);
-  if(loading){
-    return (
-      <>
-      Loading....
-      </>
-    )
-  }
+// function App() {
+//   const {todos , loading} = useTodos(5);
+//   if(loading){
+//     return (
+//       <>
+//       Loading....
+//       </>
+//     )
+//   }
   
-  return(
+//   return(
 
-    <>
-      {todos.map(todo => <Track todo={todo} key={todo.id} />)}
-    </>
-  )
-}
-
-
-function useTodos(n) {
-  const [todos, setTodos]  =useState([])
-  const [loading, setLoading] = useState(true)
+//     <>
+//       {todos.map(todo => <Track todo={todo} key={todo.id} />)}
+//     </>
+//   )
+// }
 
 
-  function getData(){
-    axios.get("https://sum-server.100xdevs.com/todos")
-    .then(res=> {
-      setTodos(res.data.todos)
-      setLoading(false)
-  })}
+// function useTodos(n) {
+//   const [todos, setTodos]  =useState([])
+//   const [loading, setLoading] = useState(true)
 
 
-  useEffect(() => {
-    const value = setInterval( ()=> {
-      getData();
-    }, n * 1000)
-    getData();
-
-    //clears the previous n if their is any change in n i.e the previous clock stops and a new clock starts executing 
-    //heres the clean up function
-    return () => {
-      clearInterval(value)
-    }
-  },[n])
+//   function getData(){
+//     axios.get("https://sum-server.100xdevs.com/todos")
+//     .then(res=> {
+//       setTodos(res.data.todos)
+//       setLoading(false)
+//   })}
 
 
-  return {
-          todos : todos,
-          loading: loading
-        };
-}
+//   useEffect(() => {
+//     const value = setInterval( ()=> {
+//       getData();
+//     }, n * 1000)
+//     getData();
+
+//     //clears the previous n if their is any change in n i.e the previous clock stops and a new clock starts executing 
+//     //heres the clean up function
+//     return () => {
+//       clearInterval(value)
+//     }
+//   },[n])
 
 
-function Track({todo}) {
-  return(
-    <>
-    <div>
-     {todo.title}
-   </div>
-   <div>   
-     {todo.description}
-   </div>
-   </>
-  )
+//   return {
+//           todos : todos,
+//           loading: loading
+//         };
+// }
 
 
-  
-}
+// function Track({todo}) {
+//   return(
+//     <>
+//     <div>
+//      {todo.title}
+//    </div>
+//    <div>   
+//      {todo.description}
+//    </div>
+//    </>
+//   )  
+// }
 
+// export default App;
 
 
 
-export default App;
+
+
+
+
+
+
+
+
+
+
+
+//Browser functionality related hooks
+// function useIsOnline() {
+//   const [usersStatus, setUserStatus] = useState(window.navigator.onLine)
+
+//   useEffect(() => {
+//     window.addEventListener('online', () => setUserStatus(true));
+//     window.addEventListener('offline', () => setUserStatus(false));
+//   }, [])
  
+//   return usersStatus;
+// }
+
+
+
+// function App() {
+//   const isOnline = useIsOnline(5);
+//   return(
+//     <>
+//       {isOnline ? "You are online " : "Youare not online "}
+//     </>
+//   )
+// }
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
