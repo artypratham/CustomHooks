@@ -244,35 +244,64 @@ import axios from "axios";
 
 //complete useMousePointer hook 
 
-function useMousePointer() {
-  const [ position, setPosition] = useState({x: 0, y: 0});
+// function useMousePointer() {
+//   const [ position, setPosition] = useState({x: 0, y: 0});
 
-  const handleMouseMove = (e) => {
-    setPosition({x: e.clientX, y: e.clientY});
-  }
+//   const handleMouseMove = (e) => {
+//     setPosition({x: e.clientX, y: e.clientY});
+//   }
 
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return() => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    };
-  }, []);
+//   useEffect(() => {
+//     window.addEventListener('mousemove', handleMouseMove);
+//     return() => {
+//       window.removeEventListener('mousemove', handleMouseMove)
+//     };
+//   }, []);
 
-  return position;
-}
+//   return position;
+// }
 
-function App(){
-  const mousePointer = useMousePointer()
+// function App(){
+//   const mousePointer = useMousePointer()
 
-  return (
-    <>
-    Your mouse pointer is {mousePointer.x} {mousePointer.y}
-    </>
-  )
+//   return (
+//     <>
+//     Your mouse pointer is {mousePointer.x} {mousePointer.y}
+//     </>
+//   )
 
-}
+// }
 
 
+// //performance /timer based
+// function useInterval (fn, timeout) {
+
+//   useEffect(()=> {
+//     const value =setInterval(()=> {
+//       fn()
+//     },timeout)
+//     return () => [
+//       clearInterval(value)
+//     ]
+//   },[])
+// }
+
+
+
+
+// function App() {
+//   const [count, setCount] = useState(0);
+
+//   useInterval(()=> {
+//     setCount(c => c +1);
+//   },1000)
+
+//   return (
+//     <>
+//     Timer is at {count}
+//     </>
+//   )
+// }
 export default App
 
 
