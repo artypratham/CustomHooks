@@ -302,6 +302,58 @@ import axios from "axios";
 //     </>
 //   )
 // }
+
+
+
+
+
+function useDebounce(inputValue , timeout) {
+  //store the debounced value in a state
+  const [debouncedValue, setDebouncedValue] = useState(inputValue)
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+        setDebouncedValue(inputValue)
+    }, timeout)
+
+    return () => clearTimeout(timerId)
+    
+  },[inputValue, timeout])
+
+  return debouncedValue;
+}
+
+
+
+
+
+
+
+
+function App() {
+  const [inputValue,setInputValue] = useState('')
+  const debounceValue = useDebounce(inputValue, 500)
+
+
+  return(
+    <>
+      Debounced value is {debounceValue}
+      <input 
+        type= "text" 
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder='Search ...'
+      />
+    </>
+  )
+
+}
+
+
+
+
+
+
 export default App
 
 
